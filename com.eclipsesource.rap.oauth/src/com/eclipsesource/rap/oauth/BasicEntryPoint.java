@@ -7,8 +7,8 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptLoader;
-import org.eclipse.rap.rwt.lifecycle.WidgetUtil;
 import org.eclipse.rap.rwt.scripting.ClientListener;
+import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -42,7 +42,7 @@ public class BasicEntryPoint extends AbstractEntryPoint {
 
   private void loadGoogleAPIJavaScriptIntoClient() {
     JavaScriptLoader jsLoader = RWT.getClient().getService( JavaScriptLoader.class );
-    jsLoader.require( "https://apis.google.com/js/client:platform.js" );
+    jsLoader.require( "https://apis.google.com/js/platform.js" );
   }
 
   private void createClientScriptingSignInButton( Composite parent ) {

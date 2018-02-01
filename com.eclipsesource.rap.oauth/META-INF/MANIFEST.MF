@@ -5,7 +5,7 @@ Bundle-SymbolicName: com.eclipsesource.rap.oauth
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: ECLIPSESOURCE
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.rap.rwt;bundle-version="[2.0.0,3.0.0)",
+Require-Bundle: org.eclipse.rap.rwt,
  org.eclipse.rap.jface
 Service-Component: OSGI-INF/*.xml
 Bundle-Activator: com.eclipsesource.rap.oauth.Activator

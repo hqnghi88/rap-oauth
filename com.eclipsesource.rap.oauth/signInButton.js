@@ -31,7 +31,7 @@ var options = {
   'accesstype' : 'offline',
   // https://developers.google.com/+/api/oauth#scopes
   'scope' : 'https://www.googleapis.com/auth/plus.login',
-  'clientid' : '408610392900-25h5lhifm78r7o0spg9jarc978nqmve0.apps.googleusercontent.com',
+  'clientid' : '835218236857-pq8m60p0k4rg26fn48vkaigqnc72c6p6.apps.googleusercontent.com',
   'cookiepolicy' : 'single_host_origin'
 };
 
