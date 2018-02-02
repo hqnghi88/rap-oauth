@@ -91,7 +91,7 @@ public class BasicEntryPoint extends AbstractEntryPoint {
   }
 
   private String getCid() {
-    String url = getTokenCallbackURL();;
+    String url = getTokenCallbackURL();
     return url.substring( url.lastIndexOf( "cid=" ) );
   }
 
