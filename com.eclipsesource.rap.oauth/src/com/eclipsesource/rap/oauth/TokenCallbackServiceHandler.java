@@ -6,9 +6,7 @@ import java.io.PrintWriter;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +19,6 @@ import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.CredentialRefreshListener;
 import com.google.api.client.auth.oauth2.TokenErrorResponse;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -43,8 +38,6 @@ import com.google.api.services.drive.model.ChildList;
 import com.google.api.services.drive.model.ChildReference;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
-import com.google.api.services.plus.Plus;
-import com.google.api.services.plus.model.Person;
 
 public class TokenCallbackServiceHandler implements ServiceHandler {
 
@@ -211,7 +204,7 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 					
 			  }
 			  pageToken = result.getNextPageToken();					
-			  System.out.printf("---------pageToken %s \n",pageToken);
+//			  System.out.printf("---------pageToken %s \n",pageToken);
 
 			} while (pageToken != null);
 
