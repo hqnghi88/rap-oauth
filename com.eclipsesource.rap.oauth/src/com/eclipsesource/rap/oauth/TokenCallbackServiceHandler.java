@@ -36,8 +36,11 @@ import com.google.api.client.json.JsonParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.Drive.Children;
 import com.google.api.services.drive.Drive.Files;
 import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.ChildList;
+import com.google.api.services.drive.model.ChildReference;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.plus.Plus;
@@ -174,17 +177,44 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 			// Use access token to call API
 			Drive drive = new Drive.Builder(TRANSPORT, JSON_FACTORY, credential)
 					.setApplicationName("GAMA Cloud").build();
-			FileList files = drive.files().list()
-				    .setSpaces("drive")
-				    .execute();
-				for (File file : files.getItems()) {
-				  System.out.printf("Found file: %s %s \n",
-				      file.getTitle(),file.getMimeType() );
-				}
+			
+//			List<File> ff=retrieveAllFiles(drive);
+//			for (File file : ff) {
+//				System.out.printf(" %s \n", file.getTitle() );
+//			}
+//			FileList files = drive.files().list()
+//				    .setSpaces("drive")
+//				    .execute();
+//				for (File file : files.getItems()) {
+//					if("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+//						System.out.printf(">");
+//						printFilesInFolder(drive,file.getId());
+//					}else {
+//						
+//						System.out.printf(" %s \n", file.getTitle() );
+//					}
+//				}
+			String pageToken = null;
+			do {
+			  FileList result = drive.files().list()
+			      .setSpaces("drive") 
+			      .setQ("'root' in parents and trashed = false")
+		          
+			      .setPageToken(pageToken)
+			      .execute();
 
-//			File file = drive.files().get("appfolder").execute();
-//			List<File> f=retrieveAllFiles(drive);
-//			System.out.println("   " + f.size());
+			  for (File file : result.getItems()) {
+					if("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+						System.out.printf(">>Folder ");
+					}				
+					System.out.printf(" %s \n",file.getTitle());
+					
+			  }
+			  pageToken = result.getNextPageToken();					
+			  System.out.printf("---------pageToken %s \n",pageToken);
+
+			} while (pageToken != null);
+
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -192,6 +222,26 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 		}
 
 	}
+
+	  private static void printFilesInFolder(Drive service, String folderId)
+	      throws IOException {
+	    Children.List request = service.children().list(folderId);
+
+	    do {
+	      try {
+	        ChildList children = request.execute();
+
+	        for (ChildReference child : children.getItems()) {
+	          System.out.println("File Id: " + child.keySet());
+	        }
+	        request.setPageToken(children.getNextPageToken());
+	      } catch (IOException e) {
+	        System.out.println("An error occurred: " + e);
+	        request.setPageToken(null);
+	      }
+	    } while (request.getPageToken() != null &&
+	             request.getPageToken().length() > 0);
+	  }
 
 	private static List<File> retrieveAllFiles(Drive service) throws IOException {
 		List<File> result = new ArrayList<File>();
