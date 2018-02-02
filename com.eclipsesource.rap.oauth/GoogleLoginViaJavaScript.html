@@ -120,7 +120,7 @@
     'approvalprompt' : 'force',
     'accesstype' : 'offline',
     // https://developers.google.com/+/api/oauth#scopes
-    'scope' : 'https://www.googleapis.com/auth/plus.login',
+    'scope' : 'https://www.googleapis.com/auth/drive',
     'clientid' : '835218236857-pq8m60p0k4rg26fn48vkaigqnc72c6p6.apps.googleusercontent.com',
     'cookiepolicy' : 'single_host_origin'
   };
@@ -134,7 +134,7 @@
   </script>
   <script src="https://apis.google.com/js/client:platform.js" type="text/javascript"></script>
 </head>
-<body onload="debug()">
+<body onload="startFlow()">
   <div id="startFlow">
     <a class="button button-blue" href="javascript:startFlow();">Click me</a> to trigger the sign-in flow with <code>gapi.auth.signIn()</code>
   </div>
@@ -146,7 +146,7 @@
   <div id="button"></div>
   <script type="text/javascript">
   function debug() {
-    //gapi.signin.render('button', options);
+    gapi.signin.render('button', options);
   	document.getElementById('debug').innerHTML += "HTTP session: " + QueryParameters["sessionId"];
   	document.getElementById('debug').innerHTML += "<br/>CID: " + QueryParameters["cid"];
   	document.getElementById('debug').innerHTML += "<br/>base URL: " + location.protocol + "//" + location.hostname + ":" + location.port;
